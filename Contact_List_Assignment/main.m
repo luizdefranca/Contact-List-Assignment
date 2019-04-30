@@ -37,6 +37,10 @@ int main(int argc, const char * argv[]) {
             } else if([option isEqualToString: @"new"]){
                 
                 NSString *email = [InputCollector inputForPrompt:@"Email"];
+                if( [agenda contactAlredyExistWithEmail: email]){
+                    NSLog(@"%@", @"Contact alredy exists!!");
+                    continue;
+                }
                 NSString *name = [InputCollector inputForPrompt:@"Name: "];
                 NSString *phone = [InputCollector inputForPrompt:@"Phone: "];
              

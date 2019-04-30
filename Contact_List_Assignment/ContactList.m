@@ -18,6 +18,7 @@
     return self;
 }
 -(void)addContact:(Contact *)newContact{
+    
     [_list addObject: newContact];
     NSInteger index = [_list indexOfObject:newContact];
     NSLog(@"Your new contact\n name: %@\n phone: %@\n Created", [_list[index] name], [_list[index] phone]);
@@ -46,5 +47,14 @@
             NSLog(@"%@", contact);
         }
     }
+}
+
+- (BOOL) contactAlredyExistWithEmail: (NSString*) email{
+    for (Contact *contact in _list) {
+        if([[contact email] isEqualToString: email]){
+            return YES;
+        }
+    }
+    return NO;
 }
 @end

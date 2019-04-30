@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)listContact;
 -(void)showContactWithNumber: (NSInteger) contactNumber;
 -(void)findContactWithName: (NSString*) contactName;
+- (BOOL) contactAlredyExistWithEmail: (NSString*) email;
 @end
 
 NS_ASSUME_NONNULL_END
