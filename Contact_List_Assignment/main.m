@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+
 int main(int argc, const char * argv[]) {
+    
     @autoreleasepool {
-        // insert code here...
-        NSLog(@"Hello, World!");
+        NSString static *startScreen = @"What would you like do next? new - Create a new contact list - List all contacts quit - Exit Application > ";
+        
+        BOOL keepON = YES;
+        
+        NSLog(@"%@", startScreen);
+        
     }
     return 0;
 }
