@@ -14,16 +14,16 @@
 int main(int argc, const char * argv[]) {
     
     @autoreleasepool {
-        NSString static *menuScreen = @"What would you like do next?\n" "new - Create a new contact\n" "list - List all contacts\n" "show - Show detail of contact\n" "quit - Exit Application > ";
+        NSString static *menuScreen = @"What would you like do next?\n" "new - Create a new contact\n" "list - List all contacts\n" "show - Show detail of contact\n" "find - Find contact with a name\n" "quit - Exit Application > ";
         Contact *test = [[Contact alloc]initWithName:@"test" andPhone:@"6786"];
         NSLog(@"%@", test);
         
         BOOL keepON = YES;
         ContactList *agenda = [[ContactList alloc] init];
         
-        Contact *contact1 = [[Contact alloc] initWithName:@"Paul" andPhone:@"678686868"];
-        Contact *contact2 = [[Contact alloc] initWithName:@"Luiz" andPhone:@"7897979"];
-        Contact *contact3 = [[Contact alloc] initWithName:@"Ted" andPhone:@"678686"];
+        Contact *contact1 = [[Contact alloc] initWithName:@"Paul" andPhone:@"678686868" Email: @"paul_luiz@gmail.com"];
+        Contact *contact2 = [[Contact alloc] initWithName:@"Luiz" andPhone:@"7897979" Email: @"luiz_paul@gmail.com"];
+        Contact *contact3 = [[Contact alloc] initWithName:@"Ted" andPhone:@"678686" Email:@"ted@gmail.com"];
         [agenda addContact:contact1];
         [agenda addContact:contact2];
         [agenda addContact:contact3];
@@ -36,10 +36,11 @@ int main(int argc, const char * argv[]) {
                 NSLog(@"%@", @"Hasta la vista!");
             } else if([option isEqualToString: @"new"]){
                 
+                NSString *email = [InputCollector inputForPrompt:@"Email"];
                 NSString *name = [InputCollector inputForPrompt:@"Name: "];
                 NSString *phone = [InputCollector inputForPrompt:@"Phone: "];
-                
-                Contact *contact = [[Contact alloc]initWithName:name andPhone:phone];
+             
+                Contact *contact = [[Contact alloc]initWithName:name andPhone:phone Email: email];
                 [agenda addContact:contact];
                 
                 
@@ -56,6 +57,9 @@ int main(int argc, const char * argv[]) {
                 } else {
                     NSLog(@"%@", @"It's not a valid number id");
                 }
+            } else if ([option isEqualToString:@"find"]){
+                NSString *name = [InputCollector inputForPrompt: @"Type the contact name:"];
+                [agenda findContactWithName: name];
                 
             }
         }
