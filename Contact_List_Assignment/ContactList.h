@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSMutableArray<Contact*> *list;
 - (instancetype)init;
 -(void)addContact:(Contact *)newContact;
+-(void)listContact;
 @end
 
 NS_ASSUME_NONNULL_END

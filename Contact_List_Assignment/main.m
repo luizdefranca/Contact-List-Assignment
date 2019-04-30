@@ -34,6 +34,9 @@ int main(int argc, const char * argv[]) {
                 [agenda addContact:contact];
                 
                 
+            } else if ([option isEqualToString:@"list"]){
+                
+                [agenda listContact];
             }
         }
 
