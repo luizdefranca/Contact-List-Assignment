@@ -21,7 +21,7 @@
     
     [_list addObject: newContact];
     NSInteger index = [_list indexOfObject:newContact];
-    NSLog(@"Your new contact\n name: %@\n phone: %@\n Created", [_list[index] name], [_list[index] phone]);
+    NSLog(@"Your new contact\n name: %@\n Created", [_list[index] name]);
 }
 -(void)listContact{
     NSMutableString *contactList = [NSMutableString string];

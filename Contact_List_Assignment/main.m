@@ -14,16 +14,23 @@
 int main(int argc, const char * argv[]) {
     
     @autoreleasepool {
-        NSString static *menuScreen = @"What would you like do next?\n" "new - Create a new contact\n" "list - List all contacts\n" "show - Show detail of contact\n" "find - Find contact with a name\n" "quit - Exit Application > ";
-        Contact *test = [[Contact alloc]initWithName:@"test" andPhone:@"6786"];
-        NSLog(@"%@", test);
+       
+        NSString *menuScreen = @"What would you like do next?\n"
+        "new - Create a new contact\n"
+        "list - List all contacts\n"
+        "show - Show detail of contact\n"
+        "find - Find contact with a name\n"
+        "quit - Exit Application >";
         
         BOOL keepON = YES;
         ContactList *agenda = [[ContactList alloc] init];
         
-        Contact *contact1 = [[Contact alloc] initWithName:@"Paul" andPhone:@"678686868" Email: @"paul_luiz@gmail.com"];
-        Contact *contact2 = [[Contact alloc] initWithName:@"Luiz" andPhone:@"7897979" Email: @"luiz_paul@gmail.com"];
-        Contact *contact3 = [[Contact alloc] initWithName:@"Ted" andPhone:@"678686" Email:@"ted@gmail.com"];
+        NSMutableDictionary *phoneList1 = [NSMutableDictionary dictionaryWithObjects: @[@"899879", @"78979"]forKeys: @[@"mobile", @"home"] ];
+        Contact *contact1 = [[Contact alloc] initWithName:@"Paul" andPhone:phoneList1 Email: @"paul_luiz@gmail.com"];
+        NSMutableDictionary *phoneList2 = [NSMutableDictionary dictionaryWithObjects: @[@"67868", @"686975", @"678682"]forKeys: @[@"mobile", @"home",  @"work" ]];
+        Contact *contact2 = [[Contact alloc] initWithName:@"Luiz" andPhone:phoneList2 Email: @"luiz_paul@gmail.com"];
+        NSMutableDictionary *phoneList3 = [NSMutableDictionary dictionaryWithObjects: @[@"123512", @"431", @"43134"]forKeys: @[@"mobile", @"home",  @"work" ]];
+        Contact *contact3 = [[Contact alloc] initWithName:@"Ted" andPhone:phoneList3 Email:@"ted@gmail.com"];
         [agenda addContact:contact1];
         [agenda addContact:contact2];
         [agenda addContact:contact3];
@@ -42,9 +49,20 @@ int main(int argc, const char * argv[]) {
                     continue;
                 }
                 NSString *name = [InputCollector inputForPrompt:@"Name: "];
-                NSString *phone = [InputCollector inputForPrompt:@"Phone: "];
+                
+                NSMutableDictionary *phoneList = [NSMutableDictionary dictionary];
+                while (true) {
+                    NSString *phoneDescription = phoneDescription = [InputCollector inputForPrompt:@"Phone Description: \n Type return to finish"];
+                    if([phoneDescription isEqualToString: @""]){
+                        break;
+                    }
+                    NSString *phoneNumber = [InputCollector inputForPrompt: @"Number: "];
+                    
+                    [phoneList setObject: phoneNumber forKey: phoneDescription];
+                }
+                
              
-                Contact *contact = [[Contact alloc]initWithName:name andPhone:phone Email: email];
+                Contact *contact = [[Contact alloc]initWithName:name andPhone:phoneList Email: email];
                 [agenda addContact:contact];
                 
                 
