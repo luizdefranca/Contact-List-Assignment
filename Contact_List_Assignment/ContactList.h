@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ContactList : NSObject
-@property NSArray<Contact*> *agenda;
+@property NSMutableArray<Contact*> *list;
+- (instancetype)init;
+-(void)addContact:(Contact *)newContact;
 @end
 
 NS_ASSUME_NONNULL_END
