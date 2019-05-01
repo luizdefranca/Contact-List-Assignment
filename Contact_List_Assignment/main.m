@@ -14,13 +14,15 @@
 int main(int argc, const char * argv[]) {
     
     @autoreleasepool {
-       
+        
         NSString *menuScreen = @"What would you like do next?\n"
         "new - Create a new contact\n"
         "list - List all contacts\n"
         "show - Show detail of contact\n"
         "find - Find contact with a name\n"
+        "history - Print the 3 last commands\n"
         "quit - Exit Application >";
+        InputCollector *input = [[InputCollector alloc]init];
         
         BOOL keepON = YES;
         ContactList *agenda = [[ContactList alloc] init];
@@ -36,56 +38,63 @@ int main(int argc, const char * argv[]) {
         [agenda addContact:contact3];
         
         while (keepON) {
-            NSString *option = [InputCollector inputForPrompt:menuScreen];
+            NSString *option = [input  inputForPrompt:menuScreen];
             
             if ([option isEqualToString: @"quit"]) {
                 keepON = NO;
                 NSLog(@"%@", @"Hasta la vista!");
             } else if([option isEqualToString: @"new"]){
                 
-                NSString *email = [InputCollector inputForPrompt:@"Email"];
+                NSString *email = [input  inputForPrompt:@"Email"];
                 if( [agenda contactAlredyExistWithEmail: email]){
                     NSLog(@"%@", @"Contact alredy exists!!");
                     continue;
                 }
-                NSString *name = [InputCollector inputForPrompt:@"Name: "];
+                NSString *name = [input  inputForPrompt:@"Name: "];
                 
                 NSMutableDictionary *phoneList = [NSMutableDictionary dictionary];
                 while (true) {
-                    NSString *phoneDescription = phoneDescription = [InputCollector inputForPrompt:@"Phone Description: \n Type return to finish"];
+                    NSString *phoneDescription = phoneDescription = [input  inputForPrompt:@"Phone Description: \n Type return to finish"];
                     if([phoneDescription isEqualToString: @""]){
                         break;
                     }
-                    NSString *phoneNumber = [InputCollector inputForPrompt: @"Number: "];
+                    NSString *phoneNumber = [input  inputForPrompt: @"Number: "];
                     
                     [phoneList setObject: phoneNumber forKey: phoneDescription];
                 }
                 
-             
+                
                 Contact *contact = [[Contact alloc]initWithName:name andPhone:phoneList Email: email];
                 [agenda addContact:contact];
                 
-                
+                [input addHistory: @"new"];
             } else if ([option isEqualToString:@"list"]){
-                
                 [agenda listContact];
+                [input addHistory:@"list"];
+                
             } else if ([option isEqualToString:@"show"]){
-                NSString *inputId = [InputCollector inputForPrompt: @"Type the contact id:"];
+                NSString *inputId = [input  inputForPrompt: @"Type the contact id:"];
                 NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
                 NSNumber *id = [formatter numberFromString:inputId];
                 if (id != nil) {
-                   
+                    
                     [agenda showContactWithNumber:  [id integerValue]];
                 } else {
                     NSLog(@"%@", @"It's not a valid number id");
                 }
-            } else if ([option isEqualToString:@"find"]){
-                NSString *name = [InputCollector inputForPrompt: @"Type the contact name:"];
-                [agenda findContactWithName: name];
+                [input addHistory:@"show"];
                 
+            } else if ([option isEqualToString:@"find"]){
+                NSString *name = [input  inputForPrompt: @"Type the contact name:"];
+                [agenda findContactWithName: name];
+                [input addHistory:@"find"];
+                
+            } else if ([option isEqualToString:@"history"]){
+                [input printHistory];
             }
+            
         }
-
+        
     }
     return 0;
 }
